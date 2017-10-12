@@ -1,0 +1,36 @@
+1. commands for dataset
+orchadmin ls [file.ds]
+orchadmin ll [file.ds]
+orchadmin cp [file1.ds] [file2.ds]
+orchadmin rm [file.ds]
+orchadmin dump [file.ds]
+orchadmin dump -name [file.ds]
+orchadmin dump -name -field FIELD_NAME file.ds |sort |grep [string]
+orchadmin dump -name -field FIELD_NAME file.ds |sort |uniq -c
+orchadmin dump -name -field FIELD_NAME file.ds |sort |uniq -c
+dsrecords [file.ds]
+
+2. commands for job reset
+dsjob -report [Project] [Job_Name.Instance]
+dsjob -run -mode RESET [Project] [Job_Name.Instance]
+
+3. commands for job run
+dsjob -run -jobstatus \
+-param '$APT_CONFIG_FILE=/path/sample.apt' \
+-param 'In=/path/data/sample_input.sf' \
+-param 'Out=/path/data/sample_output.ds' \
+[Project] [Job_Name.Instance]
+
+4. osh samples in text (not GUI)
+osh " filter -where 'FIELD like \'ABC%\'' < [ds] file.ds > file_after.ds "
+osh " filter -where 'FIELD like \'ABC%\' or FIELD like \'EFG%\'' < [ds] file.ds > file_after.ds "
+
+5. display job name from Linux server
+dsjob -ljobs [project] | grep job_num
+e.g.
+dsjob -ljobs DSProject | grep 001
+
+All jobs with '001' in the name will display:
+job001_file_convert
+job001_file_convert_v1
+job001_file_convert_backup
